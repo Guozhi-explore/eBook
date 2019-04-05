@@ -1,0 +1,28 @@
+body{
+  font-family: cursive;
+}
+#book2_body{
+  margin-top: 5%;
+  display: flex;
+}
+#book2_img{
+  flex: 6;
+}
+#book2_img img{
+  margin-left: 20%;
+}
+#book2_intro{
+  flex:4;
+}
+#book2_addtocart{
+  flex: 2;
+}
+#book2_img img{
+  width: 20%;
+}
+#book2_abstract{
+  width:80%;
+  margin-left: 10%;
+  color:rgb(25, 75, 72);
+}
+

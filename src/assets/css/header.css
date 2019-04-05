@@ -1,0 +1,53 @@
+body{
+  margin: 0px;
+  font-family: cursive;
+}
+#header{
+  display: flex;
+  border-top: 20px solid #CCFFCC;
+  background-color: #ffffff;
+  border-bottom: 5px solid #ffffcc;
+}
+#header_intro{
+  flex: 3;
+  font-size: 28px;
+  display: flex;
+  color: rgb(116,143,136);
+}
+#header_ebook{
+  color: rgb(116,143,136);
+  margin-left: 100px;
+  margin-right: 30px;
+}
+#search{
+  flex:5;
+}
+#search input {
+  border: 2px solid #7BA7AB;
+  border-radius: 5px;
+  background: #F9F0DA;
+  color: #9E9C9C;
+  height: 25px;
+  margin-left: 50px;
+  font-family: cursive;
+}
+#search button {
+  top: 0;
+  right: 0;
+  background: #7BA7AB;
+  border-radius: 0 5px 5px 0;
+  margin-top: 28px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-family: cursive;
+}
+#search button:before {
+  color: #F9F0DA;
+}
+#header_log {
+  flex:3;
+}
+#header_log a{
+  color: rgb(116,143,136);
+  font-size: 20px;
+}

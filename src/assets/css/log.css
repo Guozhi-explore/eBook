@@ -1,0 +1,37 @@
+#login_body{
+  margin-top: 8%;
+  display: flex;
+}
+#intro{
+  flex: 3;
+  margin-left: 10%;
+}
+#intro p{
+  color: darkgray;
+  font-size: 18px;
+}
+#logon{
+  flex: 2;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+#logon_head div a{
+  font-size: 25px;
+  color: rgb(109, 128, 125);
+  text-decoration: none;
+}
+#logon_head_left{
+  padding-left: 70px;
+  float: left;
+  margin-right: 50px;
+}
+#logon_input{
+  clear: both;
+  font-size: 25px;
+}
+#logon_input button{
+  font-size: 25px;
+  background-color:rgb(138, 189, 80);
+  margin-left: 115px;
+  font-family: cursive;
+}

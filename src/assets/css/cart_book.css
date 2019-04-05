@@ -1,0 +1,23 @@
+#book{
+  margin-top: 20px;
+  display: flex;
+}
+#div_img{
+  flex: 3;
+}
+#div_message{
+  flex:1
+}
+#book_img{
+  margin-left: 50px;
+  width: 10%;
+}
+#book_number{
+  flex: 1;
+  display: flex;
+}
+#book_number p{
+  font-size: 20px;
+  margin-left: 20px;
+  font-family: cursive;
+}

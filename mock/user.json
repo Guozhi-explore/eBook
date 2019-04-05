@@ -1,0 +1,46 @@
+[
+    {
+      "account": "root",
+      "password": "12345",
+      "mailbox": "1234567@sjtu.edu.cn",
+      "orders": [],
+      "cart": [],
+      "status": "valid",
+      "ismanager": true
+    },
+    {
+      "account": "normal",
+      "password": "123",
+      "mailbox": "99999@sjtu.edu.cn",
+      "orders": [
+        {
+          "time": "2019/4/4",
+          "books": [
+            {
+              "name": "菊与刀",
+              "author": "本尼迪克特",
+              "esbn": "120"
+            },
+            {
+              "name": "菊与刀",
+              "author": "本尼迪克特",
+              "esbn": "120"
+            }]
+        }
+      ],
+      "status": "valid",
+      "ismanager": false,
+      "cart": [
+        {
+          "img_src": "菊与刀.jpg",
+          "name": "菊与刀",
+          "author": "本尼迪克特",
+          "esbn": "120",
+          "price": 42,
+          "amount_in_store": 5,
+          "amount_in_cart": 1
+        }
+      ]
+    }
+]
+

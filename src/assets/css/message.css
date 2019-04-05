@@ -1,0 +1,12 @@
+#message-div{
+  display: flex;
+}
+#message-name{
+  flex: 1;
+}
+#message-author{
+  flex: 1;
+}
+#message-link{
+  flex: 1;
+}

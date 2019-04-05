@@ -1,0 +1,17 @@
+#book{
+  margin-top: 20px;
+  display: flex;
+}
+#div_img{
+   flex: 3;
+}
+#div_message{
+  flex:1
+}
+#book_img{
+  margin-left: 50px;
+  width: 10%;
+}
+#shoping_cart{
+  flex: 1;
+}

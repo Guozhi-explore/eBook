@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "time": "2019/4/5 9:24",
+    "user": {
+      "account": "root",
+      "password": "12345",
+      "mailbox": "1234567@sjtu.edu.cn",
+      "orders": [],
+      "cart": []
+    },
+    "books": [
+      {
+        "name": "菊与刀",
+        "author": "本尼迪克特",
+        "esbn": "120"
+      },
+      {
+        "name": "菊与刀",
+        "author": "本尼迪克特",
+        "esbn": "120"
+      }
+    ]
+  }
+]

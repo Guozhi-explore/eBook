@@ -1,0 +1,17 @@
+#login_body{
+  margin-top: 8%;
+  display: flex;
+}
+#intro{
+  flex: 3;
+  margin-left: 10%;
+}
+#intro p{
+  color: darkgray;
+  font-size: 18px;
+}
+#enter{
+  flex: 1;
+  margin-top: 5%;
+  margin-left: 5%;
+}

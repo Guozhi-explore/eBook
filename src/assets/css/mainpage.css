@@ -1,0 +1,141 @@
+
+#top1{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(150, 126, 96);
+}
+#top1 a{
+    font-size: 20px;
+    float: right;
+    color:rgb(78, 78, 17);
+    padding-left: 10px
+}
+body{margin: 0px;
+font-family:cursive;}     /*delete top blank*/
+#top2{
+    float: left;
+    width: 100%;
+    height: 90px;
+    background-color: rgb(173, 165, 165);
+    border-bottom: 5px solid gray;
+}
+#top2 span{
+    float:left;
+    color:rgb(116, 143, 136);
+    font-size: 80px;
+    padding-left: 180px;
+}
+#search{
+    width:500px;
+    height:40px;
+    float: left;
+}
+#search input{
+    margin-top: 35px;
+    margin-left: 90px;
+    text-align: right;
+}
+#search button{
+    font-size: 16px;
+    font-family: cursive;
+    color:rgb(116, 143, 136);
+}
+#slogan{
+    margin-left: 50px;
+    float: left;
+}
+#slogan{
+    margin-top: -16px;
+    font-size: 40px;  
+    color:rgb(116, 143, 136);
+}
+#left{
+    float: left;
+}
+#right{                                        /*enable the orientation is across*/
+    margin-left: 150px;
+    float:left;
+}
+#bookdisplay{
+    width:700px;
+    padding-left: 150px;
+}
+#navigate{
+    text-decoration: none;
+    color: rgb(65, 71, 80);
+    font-size: 20px;
+   
+}
+hr{
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+.book_new{
+    width:140px;
+    text-align: center;
+    height: 240px;
+}
+.book_new a{
+    text-decoration: none;
+}
+.book_new img{
+    width: 125px;
+    margin-left: 5px;
+}
+.hot_books{
+    float: left;
+    
+}
+.book_hot
+{
+    width:700px;
+}
+.book_hot a{
+    text-decoration: none;
+    color: #000000;
+}
+.book_hot h5{
+    font-size: 20px;
+    margin:0px;
+    color:rgb(27, 44, 139);
+}
+.book_hot h6{
+    font-size: 20px;
+    margin: 0px;
+    color:rgb(27, 44, 139);
+}
+.book_hot img{
+    width: 125px;
+    margin-left: 5px;
+}
+.book_hot #book_hot_img{
+    float: left;
+}
+.book_hot #abstract{
+    margin-top: 10px;
+    float: left;
+    margin-left: 30px;
+    width: 500px;
+}
+.book_hot p{
+    margin: 0px;
+    font-size: 15px;
+}
+#classes{
+    width: 240px;
+    color: rgb(83, 126, 155);
+}
+#classes ul{
+    list-style-type: none;
+    
+}
+#category{
+    margin:2px;
+}
+#category h3{
+    font-size: 25px;
+    list-style-type: none;
+}
+#category h5{
+    font-size: 18px;
+}
