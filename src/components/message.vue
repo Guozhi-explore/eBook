@@ -1,21 +1,35 @@
 <template>
-    <div id="message-div">
-      <div id="message-name" >
-          eBook
-      </div>
-      <div id="message-author">
-        Copyright@2019软件学院郭志
-      </div>
-      <div id="message-link">
-        <a>https://github.com/Guozhi-explore/eBook2</a>
-      </div>
+    <div>
+      <el-row>
+        <el-col :span="6" offset="11">
+          <div class="grid-content bg-purple-dark">
+            <el-button
+              plain
+              @click="open" style="text-align: center" type="success">
+              copyright
+            </el-button>
+          </div>
+        </el-col>
+      </el-row>
+
+
     </div>
 </template>
 
 <script>
     import '../assets/css/message.css'
     export default {
-        name: "message"
+        name: "message",
+      methods:{
+        open() {
+          const h = this.$createElement;
+
+          this.$notify({
+            title: 'copyright',
+            message: h('i', { style: 'color: teal'}, 'ebook 上海交通大学软件学院郭志 Github ')
+          });
+        },
+      }
     }
 </script>
 

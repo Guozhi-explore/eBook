@@ -16,7 +16,7 @@
           </p>
         </div>
         <div id="shoping_cart">
-          <button type="button"v-on:click="addtocart(book)" class="btn btn-outline-success">加入购物车</button>
+          <el-button type="success"v-on:click="addtocart(book)" >加入购物车</el-button>
         </div>
     </div>
       <hr>
@@ -42,20 +42,28 @@
           addtocart(book){
                 if(this.current_status==="unload")
                 {
-                  alert("请先登录");
+                  this.$message({
+                    message: '请先登录',
+                    type: 'warning'
+                  });
                 }
                 else
                 {
                   const book_for_cart={
+                    "book_id":this.book.book_id,
                     "img_src":this.book.img_src,
                     "name":this.book.name,
                     "author":this.book.author,
                     "esbn":this.book.esbn,
                     "price":this.book.price,
-                    "amount_in_store":this.book.amount,
-                    "amount_in_cart":1
+                    "amount":this.book.amount,
+                    "number":1
                   }
                   this.$store.dispatch("addbooktocart",book_for_cart);
+
+                  this.$notify({
+                    title: '添加成功',
+                  });
                 }
 
           }

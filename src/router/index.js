@@ -12,12 +12,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'entrance',
-      component: Entrance
-    },
-    {
-      path:'/main',
+      path:'/',
       name:'mainpage',
       component:Mainpage
     },

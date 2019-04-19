@@ -39,19 +39,19 @@
             </div>
             <div id="log_password">
             密码：
-            <input id="input-password-id" name="id_password" size="20" maxlength="20" placeholder="" value="" v-model="user_password">
+            <input id="input-password-id" type="password" name="id_password" size="20" maxlength="20" placeholder="" value="" v-model="user_password">
             <br>
               <br>
             </div>
             <div v-if="!islog">
             确认：
-            <input id="affirm-password-id" size="20" maxlength="20" v-model="confirm_password">
+            <input id="affirm-password-id" type="password" size="20" maxlength="20" v-model="confirm_password">
             <br>
               <br>
             </div>
             <div id="log_mailboc" v-if="!islog">
               邮箱：
-              <input id="mailbox" size="20" maxlength="20" v-model="mailbox">
+              <input id="mailbox" type="email"size="20" maxlength="20" v-model="mailbox">
               <br><br>
             </div>
             <button v-on:click="user_logon">
@@ -68,6 +68,8 @@
   import '../../assets/css/log.css'
   import NavHead from '../../components/header'
   import {mapState} from 'vuex'
+  import axios from 'axios'
+  import qs from 'qs'
     export default {
         name: "log",
       data(){
@@ -76,7 +78,8 @@
             user_account:"",
             user_password:"",
             confirm_password:"",
-            mailbox:""
+            mailbox:"",
+            user:[]
           };
       },
       computed:{
@@ -92,54 +95,83 @@
         user_logon(){
           if(this.islog)                                   //登录功能实现
           {
-            for(let user of this.users)                        //一定要记得加上users             for in循环不可用,那是python的 不要想当然
-            {
-              if(this.user_account===user.account&&this.user_password===user.password)
-              {
-                if(user.status==="forbid")
+            axios.get('/loadServlet',{
+              params:{
+                account:this.user_account,
+                password:this.user_password
+              }
+            }).then(res=> {
+                const user=res.data[0];
+                if(user===null)
                 {
-                  alert("你的账号已经被系统管理员禁用");
+                  alert("账号密码不正确");
                 }
-                else {
-                  this.$store.dispatch("getcurrentuser", user);
-                  if (user.ismanager == true) {
-                    this.$store.dispatch("setcurrentstatus", "manager");
-                    this.$router.push({path: '/root'});
-                  } else {
-                    this.$store.dispatch("setcurrentstatus", "user");
-                    this.$router.push({path: '/main'});
+                else{
+                  if(user.status==="forbid")
+                  {
+                    alert("你的账号已经被系统管理员禁用");
+                  }
+                  else {
+                    this.$store.dispatch("getcurrentuser", user);
+                    this.$store.dispatch("getbooklist");
+                    if (user.ismanager) {
+                      this.$store.dispatch("setcurrentstatus", "manager");
+                      this.$store.dispatch("getorderlist");
+                      this.$store.dispatch("getuserlist");
+                      this.$router.push({path: '/root'});
+                    } else {
+                      this.$store.dispatch("setcurrentstatus", "user");
+                      this.$store.dispatch("getuserorderlist",user.user_id);
+                      this.$store.dispatch("getusercartlist",user.user_id);
+                      this.$router.push({path: '/'});
+                    }
                   }
                 }
-              }
-            }
+              })
           }
           else{                            //注册功能实现
-            for(let user of this.users) {
-              if (this.user_account === user.account) {
-                alert("用户名已存在");
-              }
-            }
             if(this.user_password!=this.confirm_password)
             {
               alert("两次密码输入不相同");
+              return;
             }
-            var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+            var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;  //检测邮箱是否合格
             if(!re.test(this.mailbox))
             {
               alert("邮箱格式不正确");
+              return;
             }
             const user={
               "account":this.user_account,
               "password":this.user_password,
               "mailbox":this.mailbox,
-              "orders":[],
-              "cart":[],
+              "status":"valid",
               "ismanager":false
             }
-            this.$store.dispatch("adduser",user);
-            this.$store.dispatch("setcurrentstatus","user");
-            this.$store.dispatch("getcurrentuser",user);
-            this.$router.push({path:'/main'})
+            axios.get(
+              "/updateUserServlet",
+              {params:{
+                  "account":this.user_account,
+                  "password":this.user_password,
+                  "mailbox":this.mailbox,
+                  "status":"valid",
+                  "ismanager":false
+            }}
+            ).then(result => {
+              console.log(result.data);
+              if(result.data===0)
+              {
+                alert("用户名已存在");
+                return;
+              }else {
+                user.user_id=result.data;
+                this.$store.dispatch("getuserorderlist", user.user_id);
+                this.$store.dispatch("getusercartlist", user.user_id);
+                this.$store.dispatch("setcurrentstatus","user");
+                this.$store.dispatch("getcurrentuser",user);
+                this.$router.push({path:'/main'})
+              }
+            })
           }
         }
       },

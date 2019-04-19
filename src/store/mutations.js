@@ -6,7 +6,13 @@ import {
   RECEIVE_CURRENT_STATUS,
   ADD_BOOK_TO_CART,
   SET_CURRENT_CLICK,
-  ADD_USER, MODIFY_USER, MODIFY_BOOK, SET_CURRENT_SEARCH,
+  ADD_USER,
+  MODIFY_USER,
+  MODIFY_BOOK,
+  SET_CURRENT_SEARCH,
+  RECEIVE_USER_ORDER,
+  RECEIVE_USER_CART,
+  CLERR_USER_PERSONAL_DATA,
 } from './mutation-types'
 
 export default {
@@ -29,7 +35,7 @@ export default {
   },
   [ADD_BOOK_TO_CART](state,{book})
   {
-    state.current_user.cart.push(book);
+    state.cart.push(book);
   },
   [SET_CURRENT_CLICK](state,{book})
   {
@@ -50,7 +56,15 @@ export default {
   [SET_CURRENT_SEARCH](state,{current_search})
   {
     state.current_search=current_search;
+  },
+  [RECEIVE_USER_ORDER](state,{orders}){
+    state.current_user_order=orders;
+  },
+  [RECEIVE_USER_CART](state,{cart}){
+    state.cart=cart;
+  },
+  [CLERR_USER_PERSONAL_DATA](state){
+    state.current_user_order=null;
+    state.cart=null
   }
-
-
 }

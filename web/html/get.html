@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <!--<script type="text/javascript" src="jq/jquery.min.js"></script>-->
+</head>
+<body id="body">
+<div style="width: 100%;height: 100% ">
+    <div style="z-index: 1;position: absolute;left: 1px;top: 1px"><img src="BG/64066603_p0.jpg" style="width: 100%;height: 100%;"><img/></div>
+    <div style="width: 400px;height: 230px; border: 1px solid #000000;margin-left: 35%;margin-top: 10% ;z-index: 10;position: relative;border-radius: 10px">
+        <h2 style="color: #000000;margin-left: 45%;margin-top: 10px">浏览</h2>
+        <div style="margin-top: 10%;margin-left: 18%">
+            <form action="../Servlet" method="get">
+                <p><input id="submit" type="submit" value="浏览" style="height: 25px;width: 60px;margin-left: 30%;border-radius: 5px;background: none;border: 1px solid black"
+                          onmouseover="this.style.opacity = 0.6" onmouseout="this.style.opacity = 1"></p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    document.getElementById("submit").onclick = function (ev) {
+        window.location.href="Hello World.html";
+    }
+</script>

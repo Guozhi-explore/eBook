@@ -2,9 +2,9 @@
   <div>
     <NavHeader></NavHeader>
     <div id="manager_footer">
-       <button class="btn btn-outline-success"v-on:click="book_show=true,user_show=false,order_show=false,add_show=false">
-         图书列表
-       </button>
+      <button class="btn btn-outline-success"v-on:click="book_show=true,user_show=false,order_show=false,add_show=false">
+        图书列表
+      </button>
       <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=true,order_show=false,add_show=false">
         用户列表
       </button>
@@ -14,47 +14,45 @@
       <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=false,add_show=true">
         添加书籍
       </button>
-        </div>
-    <div class="manager_table" v-if="book_show">
-      <p class="manager_table_title" >图书列表(修改功能（可以包括增加书籍）尚未实现，预计后端实现时，使用bootstrap table edit</p>
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">
-            封面
-          </th>
-          <th scope="col">
-            书名
-          </th>
-          <th scope="col">作者</th>
-          <th scope="col">ESBN编号
-            <button type="button" class="btn btn-outline-primary"@click="books=esbninc">↓</button>
-            <button type="button" class="btn btn-outline-primary"v-on:click="books=esbndec">↑</button>
-          </th>
-          <th scope="col">销量
-            <button type="button" class="btn btn-outline-primary"@click="books=salesinc">↓</button>
-            <button type="button" class="btn btn-outline-primary"v-on:click="books=salesdec">↑</button>
-          </th>
-          <th scope="col">库存
-            <button type="button" class="btn btn-outline-primary"v-on:click="books=amountinc">↓</button>
-            <button type="button" class="btn btn-outline-primary" v-on:click="books=amountdec">↑</button>
-          </th>
-          <th scope="col">删除</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in books">
-          <td scope="row" ><img v-bind:src="'../../static/img/'+item.img_src" class="manager_book_img"></td>
-          <td>{{item.name}}</td>
-          <td>{{item.author}}</td>
-          <td>{{item.esbn}}</td>
-          <td>{{item.sales}}</td>
-          <td>{{item.amount}}</td>
-          <td><button  type="button" class="btn btn-outline-primary">删除</button></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
+    <el-table v-if="book_show" :data="books" class="tb-edit" style="width: 100%" highlight-current-row @change="uploadmodification(scope)">
+      <el-table-column label="书名" width="180">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.name" placeholder="请输入内容" @change="uploadmodification(scope)"></el-input> <span>{{scope.row.name}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="作者" width="180">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.author" placeholder="请输入内容" @change="uploadmodification(scope)"></el-input> <span>{{scope.row.author}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="isbn" width="180">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.isbn" placeholder="请输入内容" @change="uploadmodification(scope)"></el-input> <span>{{scope.row.isbn}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="库存" width="180">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.amount" placeholder="请输入内容" @change="uploadmodification(scope)" ></el-input> <span>{{scope.row.amount}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="销量" width="180">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.sales" placeholder="请输入内容" @change="uploadmodification(scope)"></el-input> <span>{{scope.row.sales}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  label="价格">
+        <template scope="scope">
+          <el-input size="small" v-model="scope.row.price" placeholder="请输入内容" @change="uploadmodification(scope)"></el-input> <span>{{scope.row.price}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template scope="scope">
+          <!--<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
+          <el-button size="small" type="danger" @click="deletebook(scope)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <div v-if="user_show">
       <p class="manager_table_title" >用户列表</p>
       <table class="table">
@@ -78,7 +76,7 @@
           <td>{{user.mailbox}}</td>
           <td>{{user.status}}</td>
           <td>
-            <button type="button" v-if="user.ismanager===false" class="btn btn-outline-primary" v-on:click="change_user_status(index,user)">
+            <button type="button" v-if="user.ismanager===0" class="btn btn-outline-primary" v-on:click="change_user_status(index,user)">
               <span v-if="user.status==='forbid'">启用</span>
               <span v-if="user.status==='valid'">禁用</span>
             </button>
@@ -95,17 +93,15 @@
           <th scope="col">订单编号</th>
           <th scope="col">用户</th>
           <th scope="col">创建时间</th>
-          <th scope="col">书籍名称</th>
-          <th scope="col">书籍isbn</th>
+          <th scope="col">书籍名称与数量</th>
         </tr>
         </thead>
         <tbody>
           <tr v-for="order in orders">
-            <th scope="row"></th>
-            <td>{{order.user.account}}</td>
-            <td></td>
-            <td><span v-for="book in order.books">{{book.name}},</span></td>
-            <td><span v-for="book in order.books">{{book.esbn}},</span></td>
+            <th scope="row">{{order.order_id}}</th>
+            <td>{{order.user_account}}</td>
+            <td>{{order.time}}</td>
+            <td><span v-for="book in order.books">{{book}},</span></td>
           </tr>
         </tbody>
       </table>
@@ -114,18 +110,18 @@
       <form>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputEmail4">书名</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="情书" v-model="new_book.name">
+            <label >书名</label>
+            <input class="form-control"  placeholder="情书" v-model="new_book.name">
           </div>
           <div class="form-group col-md-6">
-            <label for="inputPassword4">作者</label>
-            <input type="password" class="form-control" id="inputPassword4" placeholder="文芊又"v-model="new_book.author">
+            <label >作者</label>
+            <input class="form-control" placeholder="文芊又"v-model="new_book.author">
           </div>
         </div>
         <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputAddress">esbn编号</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="999999" v-model="new_book.esbn">
+          <label >isbn编号</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="999999" v-model="new_book.isbn">
         </div>
         <div class="form-group col-md-6">
           <label for="inputAddress2">库存量</label>
@@ -134,19 +130,15 @@
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputCity">类型</label>
-            <input type="text" class="form-control" id="inputCity" placeholder="爱情" v-model="new_book.type">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputCity">价格</label>
+            <label>价格</label>
             <input type="text" class="form-control"  placeholder="无价" v-model="new_book.price">
           </div>
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-6">
             <label for="inputZip">图片</label>
             <input type="text" class="form-control" id="inputZip" placeholder="功能未实现">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="submit" class="btn btn-primary" v-on:click="submit_new_book">提交</button>
       </form>
     </div>
     </div>
@@ -156,34 +148,92 @@
    import Header from '../../components/header'
    import '../../assets/css/manager.css'
    import {mapState} from 'vuex'
+   import axios from 'axios'
     export default {
-        name: "manager",
+      name: "manager",
       data() {
         return {
-            book_show:true,
-            user_show:false,
-            order_show:false,
-            add_show:false,
-            new_book:{
-              name:"",
-              author:"",
-              price:0,
-              esbn: "0",
-              amount:0,
-              sales:0,
-              type:"",
-              img_src: '../../assets/img/活着.jpg'
-            }
+          book_show: true,
+          user_show: false,
+          order_show: false,
+          add_show: false,
+          new_book: {
+            name: "",
+            author: "",
+            price: 0,
+            isbn: "0",
+            amount: 0,
+            sales: 0,
+            type: "",
+            img_src: '../../assets/img/活着.jpg'
+          }
         }
-      },
+
+    },
       methods:{
+          uploadmodification(scope){
+            const book=this.books[scope.$index];
+            axios.get("modifyBookServlet",{
+              params:{
+                book_id:book.book_id,
+                name:book.name,
+                author:book.author,
+                price:book.price,
+                sales:book.sales,
+                amount:book.amount,
+                isbn:book.isbn,
+                abstract:book.abstract
+              }
+            }).then(res=>{
+              this.$notify({
+                title:"修改成功"
+              })
+            })
+          },
+          deletebook(scope){
+            axios.get("deleteBookServlet",{
+              params:{
+                book_id:this.books[scope.$index].book_id
+              }
+            }).then(res=> {
+              this.$notify({
+                title: "删除成功"
+              })
+              this.books.splice(index, 1);
+              this.$store.dispatch("getbooklist");
+            })
+          },
+          submit_new_book()
+          {
+            axios.get("addBookServlet",{
+              params:{
+                name:this.new_book.name,
+                author:this.new_book.author,
+                price:this.new_book.price,
+                isbn:this.new_book.isbn,
+                amount:this.new_book.amount,
+              }
+            }).then(res=> {
+              this.$notify({
+                title: "添加成功"
+              })
+              this.$store.dispatch("getbooklist");
+            })
+          },
           change_user_status(index,user)
           {
-            console.log(index);
-            console.log(user);
             user.status=(user.status==='valid'?'forbid':'valid');
-            console.log(user.status);
             this.$store.dispatch("modifyuser",(index,user));
+            axios.get("/modifyUserServlet",
+              {
+                params:{
+                  "user_id":user.user_id,
+                  "status":user.status
+                }
+              }).then(res=> {
+              this.$notify({
+                title: "修改成功"
+              })})
           }
       },
       computed:{
@@ -192,24 +242,6 @@
           books: state => state.books,
           users: state => state.users,              //mapmapState通过扩展运算符将store.state.orderList 映射this.orderList  这个this 很重要，这个映射直接映射到当前Vue的this对象上。所以通过this都能将这些对象点出来，同理，mapActions, mapMutations都是一样的道理
           }),
-            salesinc:function () {
-              return this.books.sort((book1, book2) => book1.sales < book2.sales ? -1 : 1);
-            },
-            salesdec:function () {
-              return this.books.sort((book1, book2) => book1.sales > book2.sales ? -1 : 1);
-            },
-            esbninc:function () {
-              return this.books.sort((book1, book2) => book1.esbn < book2.esbn ? -1 : 1);
-            },
-            esbndec:function () {
-              return this.books.sort((book1, book2) => book1.esbn > book2.esbn ? -1 : 1);
-            },
-            amountinc:function () {
-              return this.books.sort((book1, book2) => book1.amount < book2.amount ? -1 : 1);
-            },
-            amountdec:function () {
-              return this.books.sort((book1, book2) => book1.amount > book2.amount ? -1 : 1);
-            }
       },
       components:{
           NavHeader:Header,
@@ -218,5 +250,13 @@
 </script>
 
 <style>
-
+  .tb-edit .el-input {     /*edit table*/
+    display: none
+  }
+  .tb-edit .current-row .el-input {
+    display: block
+  }
+  .tb-edit .current-row .el-input+span {
+    display: none
+  }
 </style>

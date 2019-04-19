@@ -8,28 +8,28 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <button type="button" class="btn btn-outline-primary" style="margin-left: 20px" v-on:click="back_home">主页</button>
+            <el-button type="success" style="margin-left: 20px" v-on:click="back_home">主页</el-button>
           </li>
           <li class="nav-item" v-if="current_status==='user'">
-            <button type="button" class="btn btn-outline-primary"style="margin-left: 20px"v-on:click="move_cart">我的购物车</button>
+            <el-button type="success"style="margin-left: 20px"v-on:click="move_cart">我的购物车</el-button>
           </li>
           <li class="nav-item" v-if="current_status==='manager'">
-            <button type="button" class="btn btn-outline-primary"style="margin-left: 20px" v-on:click="move_root">管理员</button>
+            <el-button type="success"style="margin-left: 20px" v-on:click="move_root">管理员</el-button>
           </li>
           <li class="nav-item" v-if="current_status==='unload'">
-            <button type="button" class="btn btn-outline-primary"style="margin-left: 20px" v-on:click="move_log">登录/注册</button>
+            <el-button type="success"style="margin-left: 20px" v-on:click="move_log">登录/注册</el-button>
           </li>
           <li class="nav-item" v-if="current_status==='user'">
-            <button type="button" class="btn btn-outline-primary"style="margin-left: 20px" v-on:click="move_order">我的订单</button>
+            <el-button type="success"style="margin-left: 20px" v-on:click="move_order">我的订单</el-button>
           </li>
           <li class="nav-item" v-if="current_status!='unload'">
-            <button type="button" class="btn btn-outline-primary"style="margin-left: 20px" v-on:click="exit_load">退出登录</button>
+            <el-button type="success" class="btn btn-outline-primary"style="margin-left: 20px" v-on:click="exit_load">退出登录</el-button>
           </li>
         </ul>
       </div>
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="search_text">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click="search_commit">Search</button>
+        <el-button type="success" icon="el-icon-search" v-on:click="search_commit">搜索</el-button>
       </form>
     </nav>
   </div>
@@ -49,10 +49,12 @@
         },
         methods: {
           exit_load(){
+            this.$store.dispatch("clearuserorderlist");
             this.$store.dispatch("setcurrentstatus","unload");
           },
           search_commit() {
             this.$store.dispatch("setcurrentsearch",this.search_text);
+            this.$store.dispatch("getbooklist");
           },
           move_cart() {
             this.$router.push({path: '/cart'});
@@ -67,7 +69,7 @@
             this.$router.push({path: '/log'});
           },
           back_home() {
-            this.$router.push({path: '/main'});
+            this.$router.push({path: '/'});
           }
         },
         computed:{

@@ -2,16 +2,16 @@
   <div>
     <div id="book2_body">
         <div id="book2_img">
-          <img v-bind:src="'../../static/img/'+current_click.img_src">
+          <img v-bind:src="'../../static/img/'+book.img_src">
         </div>
         <div id="book2_intro">
           <div>
-            <p>{{current_click.name}}</p>
-            <p>{{current_click.author}}</p>
+            <p>{{book.name}}</p>
+            <p>{{book.author}}</p>
           </div>
           <div>
-            <p>IBNS编号：{{current_click.esbn}}</p>
-            <p>售价：{{current_click.price}}</p>
+            <p>IBNS编号：{{book.esbn}}</p>
+            <p>售价：{{book.price}}</p>
           </div>
         </div>
         <div id="book2_addtocart">
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div id="book2_abstract">
-          <p> {{current_click.abstract}}</p>
+          <p> {{book.abstract}}</p>
     </div>
   </div>
 
@@ -36,29 +36,40 @@
       },
 
       methods:{
-        add_book_to_cart(){
+        addtocart(book){
           if(this.current_status==="unload")
           {
-            alert("请先登录");
+            this.$message({
+              message: '请先登录',
+              type: 'warning'
+            });
           }
           else
           {
             const book_for_cart={
-              "img_src":this.current_click.img_src,
-              "name":this.current_click.name,
-              "author":this.current_click.author,
-              "esbn":this.current_click.esbn,
-              "price":this.current_click.price,
-              "amount_in_store":this.current_click.amount_in_store,
-              "amount_in_cart":1
+              "book_id":this.book.book_id,
+              "img_src":this.book.img_src,
+              "name":this.book.name,
+              "author":this.book.author,
+              "esbn":this.book.esbn,
+              "price":this.book.price,
+              "amount":this.book.amount,
+              "number":1
             }
             this.$store.dispatch("addbooktocart",book_for_cart);
+
+            this.$notify({
+              title: '添加成功',
+            });
           }
 
         }
       },
       computed:{
-          ...mapState(["current_click","current_status"])
+        ...mapState({
+          book:state=>state.current_click,
+          current_status:state=>state.current_status
+        }),
       }
 
     }

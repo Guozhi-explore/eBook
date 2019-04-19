@@ -11,7 +11,6 @@
       <div v-for="book in books">
         <nav-book v-bind:book="book"></nav-book>
       </div>
-      <hr>
       <nav-message></nav-message>
     </div>
 </template>
