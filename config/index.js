@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/':{
-        target:'http://localhost:8000/eBook_war_exploded/'
+        target:'http://localhost:8000/'
       }},
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

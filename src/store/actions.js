@@ -22,10 +22,10 @@ import {
 
 export default {
     getbooklist({commit,state}) {
-        axios.get("/bookServlet",{
-          params:{
+        axios.get("/allBook",{
+          /*params:{
             search_text:this.state.current_search
-          }
+          }*/
         }).then(res=>{
           const books=res.data;            //data是axios自带的
           commit(RECEIVE_BOOKLIST,{books});

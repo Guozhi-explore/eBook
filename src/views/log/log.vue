@@ -95,21 +95,24 @@
         user_logon(){
           if(this.islog)                                   //登录功能实现
           {
-            axios.get('/loadServlet',{
+            axios.get('/judgeLogin',{
               params:{
                 account:this.user_account,
                 password:this.user_password
               }
             }).then(res=> {
-                const user=res.data[0];
-                if(user===null)
+                const user=res.data;
+                if(res.data===null||res.data==="")
                 {
-                  alert("账号密码不正确");
+                  this.$message(
+                    '账号密码不正确'
+                );
+                  return;
                 }
                 else{
                   if(user.status==="forbid")
                   {
-                    alert("你的账号已经被系统管理员禁用");
+                    this.$message("你的账号已经被系统管理员禁用");
                   }
                   else {
                     this.$store.dispatch("getcurrentuser", user);
@@ -132,13 +135,13 @@
           else{                            //注册功能实现
             if(this.user_password!=this.confirm_password)
             {
-              alert("两次密码输入不相同");
+              this.$message("两次密码输入不相同");
               return;
             }
             var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;  //检测邮箱是否合格
             if(!re.test(this.mailbox))
             {
-              alert("邮箱格式不正确");
+              this.$message("邮箱格式不正确");
               return;
             }
             const user={
@@ -149,7 +152,7 @@
               "ismanager":false
             }
             axios.get(
-              "/updateUserServlet",
+              "/judgeRegister",
               {params:{
                   "account":this.user_account,
                   "password":this.user_password,
@@ -161,7 +164,7 @@
               console.log(result.data);
               if(result.data===0)
               {
-                alert("用户名已存在");
+                this.$message("用户名已存在");
                 return;
               }else {
                 user.user_id=result.data;
