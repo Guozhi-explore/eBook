@@ -15,16 +15,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(book,index) in cart":key="index">
+          <tr v-for="(bookItem,index) in cart":key="index">
             <th scope="row">
-              <img id="book_img" v-bind:src="'../../static/img/'+book.img_src">
+              <img id="book_img" v-bind:src="bookItem.book.img_src">
             </th>
-            <td>{{book.name}}</td>
-            <td>{{book.author}}</td>
-            <td>{{book.amount}}</td>
+            <td>{{bookItem.book.name}}</td>
+            <td>{{bookItem.book.author}}</td>
+            <td>{{bookItem.book.amount}}</td>
             <td>
               <button class="btn-outline-success" v-on:click="change_amount(book,false,index)">-</button>
-              {{book.number}}
+              {{bookItem.bookNumber}}
               <button class="btn-outline-success" v-on:click="change_amount(book,true,index)">+</button>
             </td>
           </tr>

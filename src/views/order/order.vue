@@ -22,17 +22,21 @@
           <th scope="col">#</th>
           <th scope="col">时间</th>
           <th scope="col">书籍</th>
+          <th scope="col">数量</th>
           <th scope="col">总价</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(order,index) in user_order" :key="index">
           <th scope="row">{{index+1}}</th>
-          <td>{{order.time}}</td>
+          <td>{{order.orderTime}}</td>
           <td >
-            <span v-for="book in order.books">{{book}},</span>
+            <span v-for="book in order.bookList">{{book.name}},</span>
           </td>
-          <td>{{order.total_price}}</td>
+          <td>
+            <span v-for="number in order.bookNum">{{number}},</span>
+          </td>
+          <td>{{order.orderMoney}}</td>
         </tr>
         </tbody>
       </table>

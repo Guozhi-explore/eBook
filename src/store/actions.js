@@ -32,9 +32,9 @@ export default {
         });
     },
     getuserlist({commit,state}) {
-      axios.get("/userServlet").then(res=>{
+      axios.get("/allUser").then(res=>{
         const users=res.data;            //data是axios自带的
-        console.log(this.books);
+        //console.log(this.books);
         commit(RECEIVE_USERLIST,{users});
       });
     },
@@ -95,9 +95,9 @@ export default {
   //异步获取用户列表
 
     getuserorderlist({commit,state},user_id) {
-        axios.get("/orderItemsServlet",{
+        axios.get("/userOrder",{
           params:{
-            user_id:user_id
+            user_id:user_id,
           }}
         ).then(res=>{
           const orders=res.data;            //data是axios自带的
@@ -117,7 +117,7 @@ export default {
       });
     },
     getusercartlist({commit,state},user_id) {
-      axios.get("/cartServlet", {
+      axios.get("/userCart", {
           params: {
             user_id: user_id
           }

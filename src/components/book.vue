@@ -2,7 +2,7 @@
     <div>
       <div id="book">
         <div id="div_img">
-          <img id="book_img" v-bind:src="'../../static/img/'+book.img_src"  v-on:click="book_message">
+          <img id="book_img" v-bind:src="book.img_src"  v-on:click="book_message">
         </div>
         <div id="div_message">
           <p>

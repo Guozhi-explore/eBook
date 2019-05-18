@@ -76,7 +76,7 @@
           <td>{{user.mailbox}}</td>
           <td>{{user.status}}</td>
           <td>
-            <button type="button" v-if="user.ismanager===0" class="btn btn-outline-primary" v-on:click="change_user_status(index,user)">
+            <button type="button" v-if="user.ismanager===false" class="btn btn-outline-primary" v-on:click="change_user_status(index,user)">
               <span v-if="user.status==='forbid'">启用</span>
               <span v-if="user.status==='valid'">禁用</span>
             </button>
@@ -224,7 +224,7 @@
           {
             user.status=(user.status==='valid'?'forbid':'valid');
             this.$store.dispatch("modifyuser",(index,user));
-            axios.get("/modifyUserServlet",
+            axios.get("/changeUserStatus",
               {
                 params:{
                   "user_id":user.user_id,
