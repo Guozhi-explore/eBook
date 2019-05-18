@@ -12,7 +12,7 @@ import {
   SET_CURRENT_SEARCH,
   RECEIVE_USER_ORDER,
   RECEIVE_USER_CART,
-  CLERR_USER_PERSONAL_DATA,
+  CLEAR_USER_PERSONAL_DATA, CLEAR_USER_CART,
 } from './mutation-types'
 
 export default {
@@ -61,8 +61,11 @@ export default {
     state.current_user_order=orders;
   },
 
-  [CLERR_USER_PERSONAL_DATA](state){
+  [CLEAR_USER_PERSONAL_DATA](state){
     state.current_user_order=null;
     state.cart=null
+  },
+  [CLEAR_USER_CART](state){
+    state.cart=null;
   }
 }

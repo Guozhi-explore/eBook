@@ -16,7 +16,7 @@ import {
   SET_CURRENT_SEARCH,
   RECEIVE_USER_CART,
   RECEIVE_USER_ORDER,
-  CLERR_USER_PERSONAL_DATA
+  CLERR_USER_PERSONAL_DATA, CLEAR_USER_CART
   //异步获取书籍列表
 } from './mutation-types'
 
@@ -97,5 +97,8 @@ export default {
 
     clearuserorderlist({commit,state}){
       commit(CLERR_USER_PERSONAL_DATA);
+    },
+    clearusercart({commit,state}){
+      commit(CLEAR_USER_CART);
     }
 }
