@@ -4,15 +4,26 @@
         <div id="div_img">
           <img id="book_img" v-bind:src="book.img_src"  v-on:click="book_message">
         </div>
-        <div id="div_message">
+        <div class="div_message">
           <p>
-            {{book.name}}
+            书名：{{book.name}}
           </p>
           <p>
-            {{book.author}}
+            作者：{{book.author}}
           </p>
           <p>
-            {{book.price}}
+            价格：{{book.price}}
+          </p>
+        </div>
+        <div class="div_message">
+          <p>
+            ISBN编号：{{book.isbn}}
+          </p>
+          <p>
+            销量：{{book.sales}}
+          </p>
+          <p>
+            库存：{{book.amount}}
           </p>
         </div>
         <div id="shoping_cart">
@@ -57,6 +68,7 @@
                     "isbn":book.isbn,
                     "price":book.price,
                     "amount":book.amount,
+                    "sales":book.sales,
                     "number":1
 
                   };

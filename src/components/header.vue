@@ -4,7 +4,7 @@
       <a class="navbar-brand" style="padding-left: 2%"v-if="current_status==='user'">{{current_user.account}}'</a>
       <a class="navbar-brand" style="padding-left: 2%">eBook</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>wqyyuyw]
+        <span class="navbar-toggler-icon"></span>]
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
@@ -54,8 +54,11 @@
             this.$store.dispatch("setcurrentstatus","unload");
           },
           search_commit() {
+            if(this.search_text==='')
+              this.$store.dispatch("setcurrentsearch",'')
+            else
             this.$store.dispatch("setcurrentsearch",this.search_text);
-            this.$store.dispatch("getbooklist");
+
           },
           move_cart() {
             this.$router.push({path: '/cart'});

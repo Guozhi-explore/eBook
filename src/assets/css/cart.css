@@ -3,3 +3,7 @@
   justify-content: flex-end;
   margin-right: 50px;
 }
+#cart_book_img{
+  margin-left: 50px;
+  width: 12%;
+}

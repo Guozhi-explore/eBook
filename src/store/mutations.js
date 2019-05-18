@@ -11,7 +11,6 @@ import {
   MODIFY_BOOK,
   SET_CURRENT_SEARCH,
   RECEIVE_USER_ORDER,
-  RECEIVE_USER_CART,
   CLEAR_USER_PERSONAL_DATA, CLEAR_USER_CART,
 } from './mutation-types'
 
@@ -62,8 +61,9 @@ export default {
   },
 
   [CLEAR_USER_PERSONAL_DATA](state){
-    state.current_user_order=null;
-    state.cart=null
+    state.current_user_order=[];
+    state.cart=[];
+    state.current_search=""
   },
   [CLEAR_USER_CART](state){
     state.cart=[];

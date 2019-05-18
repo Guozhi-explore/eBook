@@ -29,17 +29,16 @@
       data(){
           return{
            target_books:[],
-            reg:new RegExp(this.current_search,"g")
           }
       },
       computed:{
         ...mapState(['books']),
         ...mapState(['current_search']),
         new_book:function () {
-          return this.books.sort((book1, book2) => book1.esbn < book2.esbn ? -1 : 1);
+          return this.books.sort((book1, book2) => book1.isbn > book2.isbn ? -1 : 1);
         },
         hot_book:function () {
-          return this.books.sort((book1, book2) => book1.sales < book2.sales? -1 : 1);
+          return this.books.sort((book1, book2) => book1.sales > book2.sales? -1 : 1);
         },
         cheap_book:function () {
           return this.books.sort((book1, book2) => book1.price < book2.price ? -1 : 1);

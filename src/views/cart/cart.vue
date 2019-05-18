@@ -10,18 +10,24 @@
             <th scope="col">封面</th>
             <th scope="col">书名</th>
             <th scope="col">作者</th>
+            <th scope="col">isbn</th>
+            <th scope="col">价格</th>
             <th scope="col">库存</th>
+            <th scope="col">销量</th>
             <th scope="col">数量</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(book,index) in cart":key="index">
             <th scope="row">
-              <img id="book_img" v-bind:src="book.img_src">
+              <img id="cart_book_img" v-bind:src="book.img_src">
             </th>
             <td>{{book.name}}</td>
             <td>{{book.author}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.price}}</td>
             <td>{{book.amount}}</td>
+            <td>{{book.sales}}</td>
             <td>
               <button class="btn-outline-success" v-on:click="change_amount(book,false,index)">-</button>
               {{book.number}}
@@ -93,6 +99,7 @@
             this.$notify({
               title:'购买成功'
             });
+            this.$store.dispatch("getbooklist")
             this.$store.dispatch("clearusercart");
             this.calculate();
           });

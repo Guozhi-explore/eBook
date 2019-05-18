@@ -26,7 +26,7 @@
 
           this.$notify({
             title: 'copyright',
-            message: h('i', { style: 'color: teal'}, 'ebook 上海交通大学软件学院郭志 Github ')
+            message: h('i', { style: 'color: teal'}, 'ebook 上海交通大学软件学院郭志 Github  https://github.com/Guozhi-explore/Ebook')
           });
         },
       }

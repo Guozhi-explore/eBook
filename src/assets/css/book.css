@@ -3,14 +3,14 @@
   display: flex;
 }
 #div_img{
-   flex: 3;
+   flex: 2;
 }
-#div_message{
-  flex:1
+.div_message{
+  flex:2
 }
 #book_img{
   margin-left: 50px;
-  width: 10%;
+  width: 23%;
 }
 #shoping_cart{
   flex: 1;
