@@ -66,6 +66,6 @@ export default {
     state.cart=null
   },
   [CLEAR_USER_CART](state){
-    state.cart=null;
+    state.cart=[];
   }
 }

@@ -85,11 +85,8 @@
             return;
           }
           var request=this.createRequest();
-          this.$message(request);
 
-                                                //存在的问题，从用户登录到用户提交购物车的时间内，用户的数据都是死的，如果这个时候这本书被卖完了，用户还是能够下单，造成书的库存为负
-                                                //解决办法：1.在mysql中加入一个trigger，即任何一个购物车某一本书的数量不能超过这本书的库存量
-          axios.get(request,                  //2.要求用户先保存再提交，中间能够根据实时数据修改订单数
+          axios.get(request,
           ).then(res => {
             this.$store.dispatch("getuserorderlist",this.current_user.user_id);
             this.calculate();

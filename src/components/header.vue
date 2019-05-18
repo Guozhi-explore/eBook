@@ -1,10 +1,10 @@
 <template>
   <div>
     <nav class="navbar  bg-light justify-content-between navbar-expand-lg navbar-light ">
-      <a class="navbar-brand" style="padding-left: 2%">{{current_user.account}}'</a>
+      <a class="navbar-brand" style="padding-left: 2%"v-if="current_status==='user'">{{current_user.account}}'</a>
       <a class="navbar-brand" style="padding-left: 2%">eBook</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>wqyyuyw]
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">

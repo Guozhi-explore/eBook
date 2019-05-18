@@ -9,7 +9,7 @@
         </div>
       </div>
       <div v-for="book in books">
-        <nav-book v-bind:book="book"></nav-book>
+        <nav-book v-bind:book="book" v-if="current_search===''||book.name===current_search||book.author===current_search"></nav-book>
       </div>
       <nav-message></nav-message>
     </div>
@@ -28,7 +28,8 @@
         },
       data(){
           return{
-           target_books:[]
+           target_books:[],
+            reg:new RegExp(this.current_search,"g")
           }
       },
       computed:{
