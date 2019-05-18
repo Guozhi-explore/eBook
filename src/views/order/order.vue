@@ -6,7 +6,7 @@
           <span class="demonstration">日期筛选</span>
           <el-date-picker
             v-model="value1"
-            type="daterange"
+            type="datetimerange"
             value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="开始日期"
@@ -25,7 +25,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(order,index) in user_order" :key="index">
+        <tr v-for="(order,index) in user_order" :key="index" v-if="order.orderTime<time2&&order.orderTime>time1">
           <th scope="row">{{index+1}}</th>
           <td>{{order.orderTime}}</td>
           <td>{{order.orderMoney}}</td>
@@ -43,19 +43,25 @@
         name: "order",
         data(){
           return{
-            value1: '',
+            value1:'',
+            valuetmp: ['1000-01-01 00:00:00','9999-01-01 00:00:00'],
+            time1:'1000-01-01 00:00:00',
+            time2:'9999-99-99 00:00:00'
           }
 
         },
       methods:{
         allOrder(){
+          this.valuetmp=['1000-01-01 00:00:00','9999-01-01 00:00:00'];
+          this.time1='1000-01-01 00:00:00';
+          this.time2='9999-99-99 00:00:00';
           this.$store.dispatch("getuserorderlist",this.user.user_id);
         },
         screenOrder(){
-          const time1=this.value1[0];
-          const time2=this.value1[1];
-          console.log(time1);
-          this.$store.dispatch("selectuserorderlist",{time1,time2});
+          this.valuetmp=this.value1;
+          this.time1=this.valuetmp[0];
+          this.time2=this.valuetmp[1];
+          this.$store.dispatch("getuserorderlist",this.user.user_id);
         }
       },
       components:{
