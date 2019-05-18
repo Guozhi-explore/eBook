@@ -93,15 +93,15 @@
           <th scope="col">订单编号</th>
           <th scope="col">用户</th>
           <th scope="col">创建时间</th>
-          <th scope="col">书籍名称与数量</th>
+          <th scope="col">总价</th>
         </tr>
         </thead>
         <tbody>
           <tr v-for="order in orders">
             <th scope="row">{{order.order_id}}</th>
-            <td>{{order.user_account}}</td>
-            <td>{{order.time}}</td>
-            <td><span v-for="book in order.books">{{book}},</span></td>
+            <td>{{order.user_id}}</td>
+            <td>{{order.orderTime}}</td>
+            <td>{{order.orderMoney}}</td>
           </tr>
         </tbody>
       </table>

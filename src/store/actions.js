@@ -39,7 +39,7 @@ export default {
       });
     },
     getorderlist({commit,state}) {
-      axios.get("/orderManagerServlet").then(res=>{
+      axios.get("/allOrder").then(res=>{
         const orders=res.data;            //data是axios自带的
         commit(RECEIVE_ORDERS,{orders});
       });
