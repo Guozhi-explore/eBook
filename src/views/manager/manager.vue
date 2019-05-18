@@ -173,16 +173,18 @@
       methods:{
           uploadmodification(scope){
             const book=this.books[scope.$index];
-            axios.get("modifyBookServlet",{
+            axios.get("UpdateBook",{
               params:{
+                //Integer book_id,String name,String author,String  isbn,String abstrac,String img_src,Integer price,Integer amount,Integer sales
                 book_id:book.book_id,
                 name:book.name,
                 author:book.author,
-                price:book.price,
-                sales:book.sales,
-                amount:book.amount,
                 isbn:book.isbn,
-                abstract:book.abstract
+                abstrac:book.abstract,
+                img_src:book.img_src,
+                price:book.price,
+                amount:book.amount,
+                sales:book.sales,
               }
             }).then(res=>{
               this.$notify({
@@ -191,11 +193,12 @@
             })
           },
           deletebook(scope){
-            axios.get("deleteBookServlet",{
+            axios.get("deleteBook",{
               params:{
                 book_id:this.books[scope.$index].book_id
               }
             }).then(res=> {
+              this.books.splice(scope.$index,1);
               this.$notify({
                 title: "删除成功"
               })
@@ -205,12 +208,15 @@
           },
           submit_new_book()
           {
-            axios.get("addBookServlet",{
+            axios.get("addBook",{
               params:{
+                //name, author, isbn, abstrac, img_src, price, amount
                 name:this.new_book.name,
                 author:this.new_book.author,
-                price:this.new_book.price,
                 isbn:this.new_book.isbn,
+                abstrac:"mongodb",
+                img_src:"http://localhost:8089/tmp.jpg",
+                price:this.new_book.price,
                 amount:this.new_book.amount,
               }
             }).then(res=> {
