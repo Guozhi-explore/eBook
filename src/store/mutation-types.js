@@ -13,7 +13,6 @@ export const MODIFY_USER='modify_user'
 export const MODIFY_BOOK='modify_book'
 export const SET_CURRENT_SEARCH='set_current_search'
 
-export const RECEIVE_USER_CART='receive_user_cart'
 export const RECEIVE_USER_ORDER='receiver_user_order'
 export const CLERR_USER_PERSONAL_DATA='clear_user_personal_data'
 

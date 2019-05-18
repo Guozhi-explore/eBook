@@ -50,29 +50,19 @@ export default {
     setcurrentstatus({commit},current_status){
       commit(RECEIVE_CURRENT_STATUS,{current_status});
     },
-    addbooktocart({commit},book_insert){
-     /* axios.get("/updateCartServlet", {
-          params: {
-            user_id: this.state.current_user.user_id,
-            book_id:book.book_id,
-            update_num:book.number,
-          }
-        }                                       //由于经常数据异常（可能是异步访问的原因)
-      )*/                                        //在浏览页和详情页点击加入购物车后，将不会直接写入cart数据库，而是保存到vuex里的cart中，于是只有在view-cart页面中点击保存或者提交按钮才会将数据保存至数据库
-      //this.actions.getusercartlist(this.state.current_user.user_id);
+    addbooktocart({commit},book){
       let existFlag=false;
-      this.state.cart.forEach(book=>{
-        if(book.book_id===book_insert.book_id)
+      this.state.cart.forEach(book1=>{
+        if(book1.book_id===book.book_id)
         {
-          book.number++;
+          book1.number++;
           existFlag=true;
         }
-        }
+        },
       )
       if(existFlag===false){
-        this.state.cart.push(book_insert);                  //直接在actions里面更改状态
+         commit(ADD_BOOK_TO_CART,{book});
       }
-      //commit(ADD_BOOK_TO_CART,{this.state.cart});
     },
     setcurrentclick({commit},book){
       commit(SET_CURRENT_CLICK,{book});
@@ -104,29 +94,7 @@ export default {
           commit(RECEIVE_USER_ORDER,{orders});
         });
         },
-    selectuserorderlist({commit,state},{time1,time2}) {
-      axios.get("/selectorderItemsServlet",{
-        params:{
-          user_id:this.state.current_user.user_id,
-          time1:time1,
-          time2:time2
-        }}
-      ).then(res=>{
-        const orders=res.data;            //data是axios自带的
-        commit(RECEIVE_USER_ORDER,{orders});
-      });
-    },
-    getusercartlist({commit,state},user_id) {
-      axios.get("/userCart", {
-          params: {
-            user_id: user_id
-          }
-        }
-      ).then(res => {
-        const cart = res.data;            //data是axios自带的
-        commit(RECEIVE_USER_CART, {cart});
-      });
-    },
+
     clearuserorderlist({commit,state}){
       commit(CLERR_USER_PERSONAL_DATA);
     }

@@ -10,12 +10,12 @@
             <p>{{book.author}}</p>
           </div>
           <div>
-            <p>IBNS编号：{{book.esbn}}</p>
+            <p>IBNS编号：{{book.isbn}}</p>
             <p>售价：{{book.price}}</p>
           </div>
         </div>
         <div id="book2_addtocart">
-          <button type="button" class="btn btn-outline-success" v-on:click="add_book_to_cart">加入购物车</button>
+          <button type="button" class="btn btn-outline-success" v-on:click="addtocart">加入购物车</button>
         </div>
     </div>
     <div id="book2_abstract">

@@ -60,9 +60,7 @@ export default {
   [RECEIVE_USER_ORDER](state,{orders}){
     state.current_user_order=orders;
   },
-  [RECEIVE_USER_CART](state,{cart}){
-    state.cart=cart;
-  },
+
   [CLERR_USER_PERSONAL_DATA](state){
     state.current_user_order=null;
     state.cart=null

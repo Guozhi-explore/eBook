@@ -125,7 +125,6 @@
                     } else {
                       this.$store.dispatch("setcurrentstatus", "user");
                       this.$store.dispatch("getuserorderlist",user.user_id);
-                      this.$store.dispatch("getusercartlist",user.user_id);
                       this.$router.push({path: '/'});
                     }
                   }
@@ -169,7 +168,6 @@
               }else {
                 user.user_id=result.data;
                 this.$store.dispatch("getuserorderlist", user.user_id);
-                this.$store.dispatch("getusercartlist", user.user_id);
                 this.$store.dispatch("setcurrentstatus","user");
                 this.$store.dispatch("getcurrentuser",user);
                 this.$router.push({path:'/main'})

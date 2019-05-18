@@ -50,15 +50,16 @@
                 else
                 {
                   const book_for_cart={
-                    "book_id":this.book.book_id,
-                    "img_src":this.book.img_src,
-                    "name":this.book.name,
-                    "author":this.book.author,
-                    "esbn":this.book.esbn,
-                    "price":this.book.price,
-                    "amount":this.book.amount,
+                    "book_id":book.book_id,
+                    "img_src":book.img_src,
+                    "name":book.name,
+                    "author":book.author,
+                    "isbn":book.isbn,
+                    "price":book.price,
+                    "amount":book.amount,
                     "number":1
-                  }
+
+                  };
                   this.$store.dispatch("addbooktocart",book_for_cart);
 
                   this.$notify({

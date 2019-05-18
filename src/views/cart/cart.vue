@@ -56,19 +56,9 @@
           NavHeader:Header,
         },
       methods:{
-          keepCart(){
-            this.cart.forEach(book => {         //把最新的一次购物车数据写入数据库
-              axios.get("updateCartServlet",{
-                params:{
-                  user_id:this.current_user.user_id,
-                  book_id:book.book_id,
-                  update_num:book.number,
-                }
-              });
-            })
-          },
-          createOrder(){
-            this.keepCart();                      //存在的问题，从用户登录到用户提交购物车的时间内，用户的数据都是死的，如果这个时候这本书被卖完了，用户还是能够下单，造成书的库存为负
+
+          /*createOrder(){
+            //存在的问题，从用户登录到用户提交购物车的时间内，用户的数据都是死的，如果这个时候这本书被卖完了，用户还是能够下单，造成书的库存为负
                                                   //解决办法：1.在mysql中加入一个trigger，即任何一个购物车某一本书的数量不能超过这本书的库存量
             axios.get("/createOrderServlet", {    //2.要求用户先保存再提交，中间能够根据实时数据修改订单数量
                 params: {
@@ -77,14 +67,14 @@
               }
             ).then(res => {
               this.$store.dispatch("getuserorderlist",this.current_user.user_id);
-              this.$store.dispatch("getusercartlist",this.current_user.user_id);
+              //this.$store.dispatch("clearusercartlist",this.current_user.user_id);
               this.book_number=0;
               this.book_value=0;
               this.$notify({
                 title:'购买成功'
               });
             });
-          },
+          },*/
         change_amount(book,flag,index){
             if(flag==true)
             {
