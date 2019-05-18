@@ -2,17 +2,20 @@
   <div>
     <NavHeader></NavHeader>
     <div id="manager_footer">
-      <button class="btn btn-outline-success"v-on:click="book_show=true,user_show=false,order_show=false,add_show=false">
+      <button class="btn btn-outline-success"v-on:click="book_show=true,user_show=false,order_show=false,add_show=false,statistics_show=false">
         图书列表
       </button>
-      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=true,order_show=false,add_show=false">
+      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=true,order_show=false,add_show=false,statistics_show=false">
         用户列表
       </button>
-      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=true,add_show=false">
+      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=true,add_show=false,statistics_show=false">
         订单列表
       </button>
-      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=false,add_show=true">
+      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=false,add_show=true,statistics_show=false">
         添加书籍
+      </button>
+      <button class="btn btn-outline-success" v-on:click="book_show=false,user_show=false,order_show=false,add_show=false,statistics_show=true">
+        统计消费
       </button>
     </div>
     <el-table v-if="book_show" :data="books" class="tb-edit" style="width: 100%" highlight-current-row @change="uploadmodification(scope)">
@@ -87,6 +90,21 @@
     </div>
     <div v-if="order_show">
       <p class="manager_table_title" >订单列表</p>
+      <div class="dataselector">
+        <div class="block">
+          <span class="demonstration">日期筛选</span>
+          <el-date-picker
+            v-model="value1"
+            type="datetimerange"
+            value-format="yyyy-MM-dd hh:mm:ss"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </div>
+        <el-button type="success" v-on:click="screenOrder">筛选</el-button>
+        <el-button type="success" v-on:click="allOrder" style="margin-left: 10px">全部订单</el-button>
+      </div>
       <table class="table">
         <thead class="thead-light">
         <tr>
@@ -97,7 +115,7 @@
         </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders">
+          <tr v-for="order in orders" v-if="order.orderTime<time2&&order.orderTime>time1">
             <th scope="row">{{order.order_id}}</th>
             <td>{{order.user_id}}</td>
             <td>{{order.orderTime}}</td>
@@ -141,6 +159,46 @@
         <button type="submit" class="btn btn-primary" v-on:click="submit_new_book">提交</button>
       </form>
     </div>
+    <div v-if="statistics_show">
+      <p class="manager_table_title" >统计消费</p>
+      <hr>
+      <div class="dataselector">
+        <div class="block" style="margin-left: 50px">
+          <span class="demonstration">日期筛选</span>
+          <el-date-picker
+            v-model="value1"
+            type="datetimerange"
+            value-format="yyyy-MM-dd hh:mm:ss"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        <el-button type="success" v-on:click="generateUserData">统计用户</el-button>
+        </div>
+      </div>
+
+      <el-table  v-if="statistics_user_show" :data="userData" style="width: 100%">
+        <el-table-column
+          prop="book_id"
+          label="用户账号"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="mailbox"
+          label="用户邮箱"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="orderNumber"
+          label="购买次数">
+        </el-table-column>
+        <el-table-column
+          prop="orderTotalPrice"
+          label="购买总价">
+        </el-table-column>
+      </el-table>
+
+    </div>
     </div>
 </template>
 
@@ -153,10 +211,19 @@
       name: "manager",
       data() {
         return {
+          value1:'',
+          valuetmp: ['1000-01-01 00:00:00','9999-01-01 00:00:00'],
+          time1:'1000-01-01 00:00:00',
+          time2:'9999-99-99 00:00:00',                                                //用来筛选订单、书籍与用户
+
+
           book_show: true,
           user_show: false,
           order_show: false,
           add_show: false,
+          statistics_show:false,
+          statistics_user_show:false,
+          statistics_book_show:false,
           new_book: {
             name: "",
             author: "",
@@ -166,11 +233,25 @@
             sales: 0,
             type: "",
             img_src: '../../assets/img/活着.jpg'
-          }
+          },
+          userData:[],
+          bookData:[]
         }
 
     },
       methods:{
+        allOrder(){
+          this.valuetmp=['1000-01-01 00:00:00','9999-01-01 00:00:00'];
+          this.time1='1000-01-01 00:00:00';
+          this.time2='9999-99-99 00:00:00';
+          this.$store.dispatch("getorderlist");
+        },
+        screenOrder(){
+          this.valuetmp=this.value1;
+          this.time1=this.valuetmp[0];
+          this.time2=this.valuetmp[1];
+          this.$store.dispatch("getorderlist");
+        },
           uploadmodification(scope){
             const book=this.books[scope.$index];
             axios.get("UpdateBook",{
@@ -240,7 +321,27 @@
               this.$notify({
                 title: "修改成功"
               })})
-          }
+            },
+        generateUserData()
+        {
+          this.statistics_book_show=false;
+          this.statistics_user_show=true;
+          var orderNumber=0;
+          var orderTotalPrice=0;
+          this.users.forEach(user=>{
+              /*user.forEach(order=>{
+                orderNumber+=1;
+                orderTotalPrice+=order.orderMoney;
+              })*/
+            const userdata={
+            "user_id":user.user_id,
+              "mailbox":user.mailbox,
+              "orderNumber":orderNumber,
+              "orderTotalPrice":orderTotalPrice
+            };
+          this.userData.push(userdata)}
+          )
+        }
       },
       computed:{
         ...mapState({
