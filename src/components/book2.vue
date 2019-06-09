@@ -2,7 +2,7 @@
   <div>
     <div id="book2_body">
         <div id="book2_img">
-          <img v-bind:src="'../../static/img/'+book.img_src">
+          <img v-bind:src="book.img_src">
         </div>
         <div id="book2_intro">
           <div>
@@ -19,7 +19,12 @@
         </div>
     </div>
     <div id="book2_abstract">
-          <p> {{book.abstract}}</p>
+          <p> {{book.abstrac}}</p>
+    </div>
+    <div>
+      <div v-for="comment in book.comments">
+        {{comment.comment}}
+      </div>
     </div>
   </div>
 
