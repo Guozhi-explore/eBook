@@ -356,8 +356,8 @@
           this.statistics_user_show=true;
           axios.get("/statisticUserData",{
             params:{
-              time1:this.time1,
-              time2:this.time2
+              time1:this.value1[0],
+              time2:this.value1[1]
             }}
           ).then(res=>{
             this.userData=res.data;
@@ -369,8 +369,8 @@
           this.statistics_book_show=true;
           axios.get("/statisticBookData",{
             params:{
-              time1:this.time1,
-              time2:this.time2
+              time1:this.value1[0],
+              time2:this.value1[1]
             }}
           ).then(res=>{
             this.bookData=res.data;
