@@ -26,7 +26,7 @@
       <button class="btn btn-outline-success"v-on:click="setcommenttextvisible">
         我要点评
       </button>
-      <button class="btn btn-outline-success" v-if="this.clicktocomment" style="margin-left: 5%">
+      <button class="btn btn-outline-success" v-if="commenttext" style="margin-left: 5%" v-on:click="uploadcomment">
         提交评论
       </button>
       <el-input v-if="this.clicktocomment" style="width: 50%;margin-left: 5%"
@@ -37,14 +37,13 @@
       </el-input>
       <div style="margin: 60px 0;"></div>
       <div class="block">
-        <div class="radio">
+        <div class="radio"style="font-size: 20px" :type="success">
           用户评论：
           <el-radio-group v-model="reverse">
-            <el-radio :label="true">最新评论</el-radio>
-            <el-radio :label="false">按时间序列查看</el-radio>
+            <el-radio :label="true" style="font-size: 20px">最新评论</el-radio>
+            <el-radio :label="false"style="font-size: 20px">按时间序列查看</el-radio>
           </el-radio-group>
         </div>
-
         <el-timeline :reverse="reverse">
           <el-timeline-item
             v-for="(comment, index) in book.comments"
@@ -63,6 +62,7 @@
 <script>
     import '../assets/css/book2.css'
     import {mapState} from 'vuex'
+    import axios from 'axios'
     export default {
         name: "book2",
       data(){
@@ -74,6 +74,32 @@
       },
 
       methods:{
+        uploadcomment(){
+          if(this.current_status==="unload")
+          {
+            this.$message({
+              message: '请先登录',
+              type: 'warning'
+            });
+          }
+          else
+            {
+            axios.get("/uploadComment", {
+              params: {
+                book_id:this.book.book_id,
+                user_id: this.user_id,
+                content: this.commenttext
+              }
+            }).then(res => {
+              if (res.data === "success") {
+                this.$notify({
+                  title: "提交成功"
+                })
+                this.$store.dispatch("getbooklist");
+              }
+            })
+          }
+        },
         setcommenttextvisible(){
           this.clicktocomment=true;
         },
@@ -106,8 +132,16 @@
 
         }
       },
+      watch:{
+        ...mapState({
+          user_id:state=>state.current_user.account,
+          book:state=>state.current_click,
+          current_status:state=>state.current_status
+        }),
+      },
       computed:{
         ...mapState({
+          user_id:state=>state.current_user.account,
           book:state=>state.current_click,
           current_status:state=>state.current_status
         }),
