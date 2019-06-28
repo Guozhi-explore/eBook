@@ -6,7 +6,7 @@ body{
   display: flex;
 }
 #book2_img{
-  flex: 4;
+  flex: 7;
 }
 #book2_img img{
   margin-left: 20%;
@@ -22,6 +22,12 @@ body{
 }
 #book2_abstract{
   width:80%;
+  margin-left: 10%;
+  font-size: 18px;
+  color:rgb(25, 75, 72);
+}
+#book2_comment{
+  width: 80%;
   margin-left: 10%;
   color:rgb(25, 75, 72);
 }

@@ -1,18 +1,26 @@
 [
-  {
-    "book_id": 9,
-    "comment": "comment from mongodb"
-  },
-  {
-    "book_id": 9,
-    "comment": "comment from mongodb"
-  },
-  {
-    "book_id": 9,
-    "comment": "comment from mongodb"
-  },
-  {
-    "book_id": 9,
-    "comment": "comment from mongodb"
-  }
+      {
+        "book_id": 9,
+        "user_id": 3,
+        "time": "2019-04-14 16:14:20",
+        "content": "csapp是cmu的镇校神课"
+      },
+      {
+        "book_id": 9,
+        "user_id": 3,
+        "time": "2019-04-14 16:14:25",
+        "content": "csapp是pku的镇校神课"
+      },
+      {
+        "book_id": 9,
+        "user_id": 3,
+        "time": "2019-04-14 16:14:30",
+        "content": "csapp是sjtu的镇校神课"
+      },
+      {
+        "book_id": 9,
+        "user_id": 3,
+        "time": "2019-04-14 16:14:50",
+        "content": "csapp读起来让人受益匪浅"
+      }
 ]

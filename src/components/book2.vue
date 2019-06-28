@@ -21,9 +21,39 @@
     <div id="book2_abstract">
           <p> {{book.abstrac}}</p>
     </div>
-    <div>
-      <div v-for="comment in book.comments">
-        {{comment.comment}}
+
+    <div id="book2_comment">
+      <button class="btn btn-outline-success"v-on:click="setcommenttextvisible">
+        我要点评
+      </button>
+      <button class="btn btn-outline-success" v-if="this.clicktocomment" style="margin-left: 5%">
+        提交评论
+      </button>
+      <el-input v-if="this.clicktocomment" style="width: 50%;margin-left: 5%"
+        type="textarea"
+        :autosize="{ minRows: 2, maxRows: 3}"
+        placeholder="请输入内容"
+        v-model="commenttext">
+      </el-input>
+      <div style="margin: 60px 0;"></div>
+      <div class="block">
+        <div class="radio">
+          用户评论：
+          <el-radio-group v-model="reverse">
+            <el-radio :label="true">最新评论</el-radio>
+            <el-radio :label="false">按时间序列查看</el-radio>
+          </el-radio-group>
+        </div>
+
+        <el-timeline :reverse="reverse">
+          <el-timeline-item
+            v-for="(comment, index) in book.comments"
+            :key="index"
+            :timestamp="comment.time">
+            <h5>评论者:{{comment.user_id}}</h5>
+            <h5>评论内容:{{comment.content}}</h5>
+          </el-timeline-item>
+        </el-timeline>
       </div>
     </div>
   </div>
@@ -37,10 +67,16 @@
         name: "book2",
       data(){
           return {
+            reverse:true,
+             clicktocomment:false,
+            commenttext:""
           }
       },
 
       methods:{
+        setcommenttextvisible(){
+          this.clicktocomment=true;
+        },
         addtocart(book){
           if(this.current_status==="unload")
           {
