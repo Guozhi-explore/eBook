@@ -174,12 +174,18 @@
             end-placeholder="结束日期">
           </el-date-picker>
         <el-button type="success" v-on:click="generateUserData">统计用户</el-button>
+        <el-button type="success" v-on:click="generateBookData">统计书籍</el-button>
         </div>
       </div>
 
       <el-table  v-if="statistics_user_show" :data="userData" style="width: 100%">
         <el-table-column
-          prop="book_id"
+          prop="userID"
+          label="用户ID"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="userName"
           label="用户账号"
           width="180">
         </el-table-column>
@@ -189,12 +195,34 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="orderNumber"
+          prop="orderTime"
           label="购买次数">
         </el-table-column>
         <el-table-column
-          prop="orderTotalPrice"
+          prop="orderBookNumber"
+          label="购买书籍数量">
+        </el-table-column>
+        <el-table-column
+          prop="orderMoney"
           label="购买总价">
+        </el-table-column>
+      </el-table>
+      <el-table  v-if="statistics_book_show" :data="bookData" style="width: 100%">
+        <el-table-column
+          prop="bookId"
+          label="书籍ID">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="书籍名称">
+        </el-table-column>
+        <el-table-column
+          prop="orderTimes"
+          label="出售次数">
+        </el-table-column>
+        <el-table-column
+          prop="orderMoney"
+          label="销售总价">
         </el-table-column>
       </el-table>
 
@@ -326,9 +354,7 @@
         {
           this.statistics_book_show=false;
           this.statistics_user_show=true;
-          var orderNumber=0;
-          var orderTotalPrice=0;
-          axios.get("/statisticUserOrder",{
+          axios.get("/statisticUserData",{
             params:{
               time1:this.time1,
               time2:this.time2
@@ -336,6 +362,19 @@
           ).then(res=>{
             this.userData=res.data;
           });
+        },
+        generateBookData()
+        {
+          this.statistics_user_show=false;
+          this.statistics_book_show=true;
+          axios.get("/statisticBookData",{
+            params:{
+              time1:this.time1,
+              time2:this.time2
+            }}
+          ).then(res=>{
+            this.bookData=res.data;
+          })
         }
 
       },
