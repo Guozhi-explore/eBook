@@ -73,6 +73,7 @@
             this.$router.push({path: '/log'});
           },
           back_home() {
+            this.$store.dispatch("setcurrentsearch","");
             this.$router.push({path: '/'});
           }
         },

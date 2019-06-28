@@ -328,20 +328,16 @@
           this.statistics_user_show=true;
           var orderNumber=0;
           var orderTotalPrice=0;
-          this.users.forEach(user=>{
-              /*user.forEach(order=>{
-                orderNumber+=1;
-                orderTotalPrice+=order.orderMoney;
-              })*/
-            const userdata={
-            "user_id":user.user_id,
-              "mailbox":user.mailbox,
-              "orderNumber":orderNumber,
-              "orderTotalPrice":orderTotalPrice
-            };
-          this.userData.push(userdata)}
-          )
+          axios.get("/statisticUserOrder",{
+            params:{
+              time1:this.time1,
+              time2:this.time2
+            }}
+          ).then(res=>{
+            this.userData=res.data;
+          });
         }
+
       },
       computed:{
         ...mapState({
